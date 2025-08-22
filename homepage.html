@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <link rel="icon" type="image/png" href="logo.png" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>GSEO — Student Research Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+    /* =====================
+       DESIGN TOKENS — clean editorial with Dark Mode
+    ======================*/
+    :root{
+      --bg:#ffffff;
+      --surface:#ffffff;
+      --surface-2:#f6f7fb;
+      --text:#0a0b0f;
+      --muted:#5b6170;
+      --line:#eceef3;
+      --brand:#111111;
+      --brand-2:#1f2333;
+      --accent:#4f46e5;
+      --radius:14px; --radius-lg:18px; --radius-xl:28px;
+      --shadow:0 10px 30px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.04);
+      --shadow-lg:0 24px 60px rgba(15,23,42,.10);
+      --max:1200px;
+      --sectionY: clamp(84px, 9vw, 140px);
+      --h1: clamp(48px, 6.2vw, 76px);
+      --h2: clamp(28px, 4vw, 48px);
+      --body: clamp(16px, 1.45vw, 18px);
+    }
+    html.dark{
+      --bg:#0b0f1a;
+      --surface:#0f1524;
+      --surface-2:#0c1220;
+      --text:#e8ecf8;
+      --muted:#a9b0c3;
+      --line:#1f2a44;
+      --brand:#f8fafc;
+      --brand-2:#cbd5e1;
+      --accent:#8b5cf6;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      background:linear-gradient(180deg,var(--surface-2) 0%, var(--bg) 40%);
+      color:var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale
+    }
+    a{color:inherit; text-decoration:none}
+    a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:10px}
+    html{scroll-behavior:smooth}
+
+    /* Layout */
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 24px}
+    .section{padding:var(--sectionY) 0}
+
+    /* Utilities */
+    .muted{color:var(--muted)}
+    .kicker{display:inline-flex; align-items:center; gap:10px; padding:6px 12px; border-radius:999px; border:1px solid rgba(109,94,245,.25); background:rgba(109,94,245,.08); color:#b2b6ff; font-size:12px; letter-spacing:.16em}
+    html:not(.dark) .kicker{color:#443d9b}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-size:12px; opacity:.9}
+
+    /* Progress + back-to-top */
+    .progress{position:fixed; inset:0 0 auto 0; height:3px; z-index:90; background:linear-gradient(90deg, #6e60ff, #90a0ff); transform-origin:0 50%; transform:scaleX(0)}
+    .to-top{position:fixed; right:18px; bottom:18px; width:46px; height:46px; border-radius:12px; display:grid; place-items:center; background:var(--surface); color:var(--text); border:1px solid var(--line); box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; transform:translateY(8px)}
+    .to-top.show{opacity:1; pointer-events:auto; transform:none}
+
+    /* Header */
+    header.sticky{position:sticky; top:0; z-index:80; backdrop-filter:saturate(130%) blur(12px); background:color-mix(in oklab, var(--surface) 85%, transparent); border-bottom:1px solid var(--line)}
+    .nav{height:82px; display:flex; align-items:center; gap:18px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:600}
+    .mark{width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+    .links{margin-left:auto; display:flex; align-items:center; gap:26px}
+    .links a{position:relative; color:var(--text); font-size:13px; padding:6px 0; text-transform:uppercase; letter-spacing:.1em; font-weight:600; opacity:.92}
+    .links a:after{content:""; position:absolute; left:0; right:0; bottom:-8px; height:2px; background:linear-gradient(90deg,var(--brand),var(--brand-2)); transform:scaleX(0); transform-origin:50% 50%; transition:transform .25s ease}
+    .links a.active:after, .links a:hover:after{transform:scaleX(1)}
+    .cta{margin-left:6px; height:40px; padding:0 16px; display:flex; align-items:center; gap:8px; border-radius:999px; background:transparent; color:var(--text); font-weight:700; border:1px solid var(--line); transition:all .2s ease}
+    .cta:hover{background:var(--text); color:var(--bg); border-color:var(--text)}
+    .mode{display:flex; align-items:center; gap:8px; margin-left:8px}
+    .mode button{height:40px; padding:0 14px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-weight:700; cursor:pointer}
+
+    /* Hero */
+    .hero{padding:calc(var(--sectionY) - 24px) 0 var(--sectionY); background:var(--surface)}
+    .h-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center}
+    .h-title{font-size:var(--h1); line-height:1.06; margin:.1em 0 .2em; font-weight:600}
+    .h-sub{color:var(--muted); font-size:var(--body); line-height:1.8; max-width:640px}
+    .h-form{margin-top:20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .input{flex:0 0 420px; height:48px; border-radius:12px; background:var(--surface); border:1px solid var(--line); color:var(--text); padding:0 14px}
+    .btn{height:48px; padding:0 16px; border-radius:12px; border:1px solid var(--text); cursor:pointer; background:var(--text); color:var(--bg); font-weight:600; transition:all .22s ease; position:relative; overflow:hidden}
+    .btn:hover{background:var(--bg); color:var(--text)}
+    .btn::after{content:""; position:absolute; inset:-40%; background:radial-gradient(60% 60% at var(--x,50%) var(--y,50%), rgba(255,255,255,.4), transparent 60%); opacity:0; transition:opacity .25s ease}
+    .btn:hover::after{opacity:1}
+    .hero-art{position:relative; min-height:560px; border-radius:var(--radius-xl); overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow-lg)}
+    .hero-art img{position:absolute; inset:0; margin:auto; width:110%; height:110%; object-fit:cover; filter:grayscale(10%) contrast(102%); opacity:.98}
+    .badges{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap}
+    .badge{padding:8px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--line); font-size:12.5px}
+
+    /* Flags marquee */
+    .flags{padding:12px 0 72px}
+    .flag-marquee{position:relative; overflow:hidden}
+    .flag-mask{mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)}
+    .flag-track{
+      --speed: 12s;
+      display:flex; gap:18px; align-items:center;
+      width: max-content;
+      animation: marquee var(--speed) linear infinite;
+    }
+    .flag-track:hover{animation-play-state: paused;}
+    .flag{
+      flex:0 0 auto;
+      width:84px; height:52px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      background:var(--surface);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      position:relative;
+      transition:transform .22s ease, box-shadow .22s ease;
+      will-change: transform;
+    }
+    .flag:hover{ transform: translateY(-4px) scale(1.06); box-shadow:var(--shadow-lg); }
+    .flag img{ width:40px; height:40px; border-radius:10px }
+    .flag::after{
+      content: attr(aria-label);
+      position:absolute;
+      left:50%; bottom:calc(100% + 10px);
+      transform:translateX(-50%) translateY(4px);
+      background: color-mix(in oklab, var(--text) 88%, transparent);
+      color: var(--bg);
+      font-size:12px; font-weight:700;
+      padding:6px 8px; border-radius:8px;
+      white-space:nowrap; pointer-events:none;
+      opacity:0; transition: opacity .2s ease, transform .2s ease;
+    }
+    .flag:hover::after{ opacity:1; transform:translateX(-50%) translateY(0); }
+    @keyframes marquee{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+
+    @media (prefers-reduced-motion: reduce){
+      .flag-track{ animation:none }
+    }
+
+    /* Featured slider */
+    .eyebrow{display:inline-block; letter-spacing:.18em; font-size:12px; color:#6b6f86}
+    .eyebrow.circled{position:relative; padding:10px 16px; border:1px solid var(--line); border-radius:999px; background:var(--surface)}
+    h2.title{font-size:var(--h2); margin:.35em 0 .2em; font-weight:600}
+    p.lead{color:var(--muted); max-width:820px}
+    /* Stage */
+    .slider .stage{position:relative; border-radius:36px; overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow-lg); background:var(--surface)}
+    .track{display:flex; width:100%; height:560px; transition:transform .7s cubic-bezier(.22,.61,.36,1); will-change:transform}
+    .slide{position:relative; flex:0 0 100%}
+    .slide img{width:100%; height:100%; object-fit:cover; display:block; filter:contrast(1.05) saturate(1.02)}
+    /* bottom caption band */
+    .overlay{position:absolute; inset:auto 0 0 0; padding:22px 28px; background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.62)); color:#fff}
+    .overlay h4{margin:0 0 6px 0; font-size:22px; font-weight:800}
+    .overlay p{margin:6px 0 12px; font-size:14px; opacity:.95; max-width:820px}
+    .overlay .author{opacity:.9; font-size:13.5px}
+    .overlay .read{display:inline-block; padding:8px 12px; border-radius:10px; background:rgba(255,255,255,.12); backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,.35); color:#fff; font-weight:700}
+    /* dots inside pill */
+    .dots{position:absolute; left:50%; transform:translateX(-50%); bottom:16px; display:flex; gap:10px; align-items:center; z-index:6; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.3); padding:6px 12px; border-radius:999px; backdrop-filter:blur(4px)}
+    .dot{width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.65); opacity:.6; border:1px solid rgba(0,0,0,.12); cursor:pointer}
+    .dot.active{background:#fff; opacity:1; transform:scale(1.15)}
+    /* arrows */
+    .nav-btn{position:absolute; top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.35); z-index:7; backdrop-filter:blur(4px); cursor:pointer}
+    .nav-btn.prev{left:18px} .nav-btn.next{right:18px}
+    .nav-btn:hover{background:rgba(255,255,255,.28)}
+/* Latest — grid feed */
+    .latest{background:var(--surface-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+    .feed-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-top:18px}
+    @media(max-width:1020px){ .feed-grid{grid-template-columns:1fr 1fr} }
+    @media(max-width:680px){ .feed-grid{grid-template-columns:1fr} }
+    .story-card{display:grid; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px; box-shadow:var(--shadow)}
+    .story-card:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg)}
+    .story-thumb{width:100%; height:160px; border-radius:10px; object-fit:cover}
+    .topic{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-size:12px}
+    .post-title{margin:6px 0 6px; font-size:clamp(20px,2.2vw,24px); font-weight:700; letter-spacing:-.005em}
+    .post-deck{color:var(--muted); line-height:1.7}
+    .post-meta{display:flex; gap:14px; align-items:center; color:var(--muted); font-size:12.5px}
+
+    /* Hub – cards */
+    .hub .grid{margin-top:28px; display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+    @media (max-width:1120px){.hub .grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.hub .grid{grid-template-columns:1fr}}
+    .hub .cell{padding:28px; border:1px solid var(--line); border-radius:22px; background:var(--surface); box-shadow:var(--shadow-lg); transition:transform .25s ease, box-shadow .25s ease}
+    .hub .cell:hover{transform:translateY(-2px)}
+    .hub h3{margin:2px 0 10px; font-size:28px; font-weight:800; letter-spacing:-.01em; line-height:1.2}
+    .hub p{color:var(--muted); margin:0 0 8px; font-size:18px; line-height:1.8}
+    .hub .meta{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Interviews */
+    .interviews .rail{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-top:18px}
+    .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; transition:transform .28s ease, box-shadow .28s ease; box-shadow:var(--shadow)}
+    .card .img{height:240px; overflow:hidden}
+    .card .img .vid{width:100%; height:100%; border:0; display:block}
+    .card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg)}
+    .card .meta{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:16px 18px}
+    .card .label{font-size:18px; font-weight:700; color:var(--text)}
+    .card .desc{color:var(--muted); font-size:14px; margin-top:6px}
+    .circle-btn{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:var(--surface-2); color:#4940b3; font-size:18px}
+
+    /* Join GSEO */
+    .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px}
+    .step{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
+    .step .n{width:30px; height:30px; display:grid; place-items:center; border-radius:999px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:var(--bg); font-weight:700}
+
+    /* Stats */
+    .stats .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center}
+    .stats h2{font-size:calc(var(--h2) + 12px); line-height:1.05; margin:.1em 0 .2em; font-weight:700}
+    .figures{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+    .figure{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px 20px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:6px}
+    .figure .num{font-weight:800; font-size:clamp(38px,5.2vw,56px)}
+    .figure .cap{color:var(--muted); font-size:12.5px; text-transform:uppercase; letter-spacing:.14em}
+    .figure .bar{width:100%; height:6px; border-radius:6px; background:color-mix(in oklab, var(--line) 60%, transparent); overflow:hidden}
+    .figure .bar b{display:block; height:100%; border-radius:6px; background:var(--text); width:var(--w,60%)}
+
+    /* Team */
+    .about { text-align:center; position:relative; padding-bottom:0; }
+    .about-title { font-size:clamp(28px,4vw,40px); font-weight:700; margin-bottom:10px; }
+    .about-sub { color:var(--muted); max-width:820px; margin:0 auto 48px; line-height:1.8; }
+    .about-grid.six { display:grid; grid-template-columns:repeat(6, 1fr); gap:24px; align-items:start; justify-items:center; }
+    .about-card { display:grid; justify-items:center; gap:8px; background:var(--surface); border:1px solid var(--line); padding:18px; border-radius:16px; box-shadow:var(--shadow) }
+    .about-card:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg)}
+    .about-photo { width:96px; height:96px; border-radius:14px; overflow:hidden; }
+    .about-photo img { width:100%; height:100%; object-fit:cover; }
+    .about-name { font-weight:700; margin-top:6px; font-size:16px }
+    .about-role { color:var(--muted); font-size:12.5px; margin-top:4px }
+    .about-bio { color:var(--muted); font-size:12.5px; margin-top:8px }
+
+    /* FAQ / Submit */
+    .faq{margin:20px auto 52px; max-width:820px}
+    .qa{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 16px; color:var(--text); box-shadow:var(--shadow)}
+    .qa + .qa{margin-top:10px}
+    .qa summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:700}
+    .qa summary::-webkit-details-marker{display:none}
+    .qa summary span{transition:transform .25s ease}
+    .qa[open] summary span{transform:rotate(45deg)}
+    .qa .a{color:var(--muted); margin-top:8px; line-height:1.7}
+    .signup{position:relative; text-align:center; padding:90px 0 64px; display:grid; justify-items:center}
+    .signup .h-form{justify-content:center; width:fit-content; margin-inline:auto}
+    .signup .input{flex:0 0 420px}
+    .signup h3{margin-top:8px}
+    .comet{position:absolute; left:50%; top:6px; width:2px; height:78px; background:linear-gradient(180deg,#8fb0ff, rgba(255,255,255,0)); box-shadow:0 0 18px 6px rgba(245,248,255,.5); transform:translateX(-50%)}
+
+    /* Footer */
+    footer.site{border-top:1px solid var(--line); background:var(--surface); padding:54px 0 30px; margin-top:var(--sectionY)}
+    .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:24px}
+    .foot h5{margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase}
+    .foot a{display:block; color:var(--text); opacity:.92; padding:6px 0; font-size:14px}
+    .foot .brandline{display:flex; align-items:center; gap:12px}
+    .foot .brandmark{width:28px; height:28px; border-radius:9px; background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+    .news{display:flex; gap:8px; margin-top:12px}
+    .news input{flex:1; height:42px; border-radius:12px; border:1px solid var(--line); background:var(--surface); color:var(--text); padding:0 12px}
+    .news button{height:42px; padding:0 14px; border-radius:12px; border:0; background:var(--text); color:var(--bg); font-weight:700}
+    .copyright{border-top:1px solid var(--line); margin-top:26px; padding-top:18px; color:var(--muted); display:flex; justify-content:space-between; gap:16px; font-size:13px}
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity 1s ease, transform 1s ease}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Responsive */
+    @media (max-width:1120px){
+      .h-grid{grid-template-columns:1fr}
+      .interviews .rail{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
+      .about-grid.six{grid-template-columns:repeat(3,1fr)}
+      .stats .grid{grid-template-columns:1fr}
+      .foot-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:640px){
+      .about-grid.six{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .flag-track{animation:none}
+      .reveal{transition:none}
+      .track{transition:none}
+    }
+
+    .team-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.team-member {
+  text-align: center;
+  max-width: 160px;
+}
+
+.team-member img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
+}
+
+.team-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.team-role {
+  font-size: 14px;
+  color: #555;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  min-height: 280px;
+}
+
+.cell h3 {
+  margin-bottom: 10px;
+}
+
+.cell p {
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.cell .cta {
+  align-self: flex-start;
+  padding: 10px 18px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.cell .cta:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+
+  
+    .cell {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #f3f4f6, #ffffff);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+    .cell:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+    .cell::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(79,70,229,0.08) 0%, transparent 60%);
+      transform: rotate(25deg);
+      z-index: 0;
+    }
+    .cell h3 {
+      position: relative;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      z-index: 1;
+    }
+    .cell p {
+      position: relative;
+      color: #4b5563;
+      font-size: 15px;
+      flex-grow: 1;
+      z-index: 1;
+    }
+    .cell .cta {
+      position: relative;
+      align-self: flex-start;
+      padding: 10px 20px;
+      background: #111827;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+    .cell .cta:hover {
+      background: #4f46e5;
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      background: linear-gradient(135deg, #f9fafb, #ffffff);
+      padding: 24px;
+      border-radius: 20px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+    .step .n {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: #4f46e5;
+    }
+    .step-content h4 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .step-content p {
+      margin: 0;
+      font-size: 15px;
+      color: #4b5563;
+    }
+    @media (min-width: 720px) {
+      .steps {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .learn-more {
+      display: inline-block;
+      margin-top: 32px;
+      font-weight: 600;
+      color: #111827;
+      text-decoration: none;
+      border-bottom: 2px solid #111827;
+      transition: color 0.3s ease, border-color 0.3s ease;
+      font-size: 15px;
+    }
+    .learn-more:hover {
+      color: #7c3aed;
+      border-color: #7c3aed;
+    }
+    .reveal-animated {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal-animated.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    .btn-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #007bff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-link:hover {
+  background: #0056b3;
+}
+
+    </style>
+
+<style>
+/* --- GSEO slider styles (namespaced) --- */
+.gseo-stage{position:relative; overflow:hidden; width:100%;}
+.gseo-track{display:flex; will-change:transform; transition:transform .35s ease; touch-action:pan-y;}
+.gseo-slide{position:relative; min-width:100%;}
+.gseo-slide img{width:100%; height:420px; object-fit:cover; display:block;}
+.overlay{position:absolute; left:0; right:0; bottom:0; padding:16px; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.85) 100%); color:#fff; pointer-events:none;}
+.overlay a{pointer-events:auto; color:inherit; text-decoration:none;}
+.overlay h4 a:hover, .overlay h4 a:focus{ text-decoration:underline; }
+
+.gseo-btn{display:inline-block; margin-top:10px; padding:8px 14px; background:#007bff; color:#fff; font-size:14px; font-weight:600; border-radius:6px; text-decoration:none; transition:background .2s ease-in-out;}
+.gseo-btn:hover{background:#0056b3;}
+
+.gseo-nav{position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; border:none; background:rgba(0,0,0,.55); color:#fff; font-size:24px; line-height:44px; text-align:center; cursor:pointer; z-index:10;}
+.gseo-nav.prev{left:10px;}
+.gseo-nav.next{right:10px;}
+.gseo-nav:focus{outline:2px solid #fff; outline-offset:2px;}
+
+.gseo-dots{display:flex; gap:8px; position:absolute; left:50%; transform:translateX(-50%); bottom:10px; z-index:9;}
+.gseo-dots button{width:8px; height:8px; border-radius:50%; border:none; background:rgba(255,255,255,.5); cursor:pointer;}
+.gseo-dots button[aria-current="true"]{background:#fff;}
+@media (max-width:640px){ .gseo-slide img{ height:300px; } }
+</style>
+
+</head>
+<body>
+
+
+
+<div class="progress" id="progress"></div>
+<!-- Header -->
+<header class="sticky">
+<div class="wrap nav">
+<a class="brand" href="index.html" style="gap:10px">
+<img alt="GSEO Journal Logo" src="logo.png" style="width: 200px; height: 100px; object-fit: contain;"/>
+</a>
+<nav class="links" id="navLinks">
+<a class="nav-link" href="#papers">Papers</a>
+<a class="nav-link" href="#latest">Latest</a>
+<a class="nav-link" href="#sections">Sections</a>
+<a class="nav-link" href="#interviews">Interviews</a>
+<a class="nav-link" href="#process">Join</a>
+<a class="nav-link" href="#about">Team</a>
+<a class="nav-link" href="#submit">Submit Paper ↗</a>
+</nav>
+</div>
+</header>
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap h-grid reveal">
+    <div>
+      <div class="kicker">STUDENT RESEARCH JOURNAL</div>
+      <h1 class="h-title">Publish high‑school research with GSEO</h1>
+      <p class="h-sub">Turn curiosity into citable scholarship. Build a public portfolio, learn from editors and mentors, and publish work that universities and future collaborators can reference.</p>
+      <form class="h-form" onsubmit="event.preventDefault()">
+        <div class="badges">
+          <div class="badge chip">100+ articles</div>
+          <div class="badge chip">8+ countries</div>
+          <div class="badge chip">Weekly issues</div>
+        </div>
+      </form>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <img src="semiconductor.png" alt="Research lab"/>
+    </div>
+  </div>
+</section>
+<!-- Flags -->
+<section aria-label="Trusted by schools around the world" class="wrap flags reveal">
+  <div class="flag-marquee flag-mask">
+    <div class="flag-track" id="flagTrack">
+      <div class="flag" aria-label="USA"><img alt="USA" src="https://flagcdn.com/w80/us.png"/></div>
+      <div class="flag" aria-label="Singapore"><img alt="Singapore" src="https://flagcdn.com/w80/sg.png"/></div>
+      <div class="flag" aria-label="Indonesia"><img alt="Indonesia" src="https://flagcdn.com/w80/id.png"/></div>
+      <div class="flag" aria-label="Mexico"><img alt="Mexico" src="https://flagcdn.com/w80/mx.png"/></div>
+      <div class="flag" aria-label="Croatia"><img alt="Croatia" src="https://flagcdn.com/w80/hr.png"/></div>
+      <div class="flag" aria-label="Turkey"><img alt="Turkey" src="https://flagcdn.com/w80/tr.png"/></div>
+      <!-- Add more here if you like; the scroller will adapt -->
+    </div>
+  </div>
+</section>
+<!-- Featured -->
+
+
+<section class="wrap section reveal slider" id="papers">
+  <div class="eyebrow circled">FEATURED PAPERS</div>
+  <h2 class="title">Peer-reviewed highlights</h2>
+  <p class="lead">Recent work from our editorial board across biology, chemistry, technology, and finance.</p>
+
+  <div class="gseo-stage" id="sliderStage">
+    <div class="gseo-track" id="track">
+
+      <!-- 1 -->
+      <article class="gseo-slide">
+        <img src="https://www.tembusulaw.com/wp-content/uploads/unnamed-5-9.jpg" alt="US flag"/>
+        <div class="overlay">
+          <h4><a href="https://drive.google.com/file/d/1fGH9UFGGq1YY7XTmVb-KKnohK_H1-Q1H/view" target="_blank" rel="noopener noreferrer">The Shift in Arab American Demands for Legal Representation Between the Early 20th and 21st Centuries</a></h4>
+          <p>Author: Zachary Samuel Rodger</p>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="gseo-slide">
+        <img src="https://finaciti.com/wp-content/uploads/2023/08/image.png" alt="Euro coin"/>
+        <div class="overlay">
+          <h4><a href="https://drive.google.com/file/d/1DVNeqpjL0K2hNd10umboCF-y3zuVUudX/view" target="_blank" rel="noopener noreferrer">The Relationship Between Financial Literacy, Delayed Gratification, and Career Resilience Among High School Students</a></h4>
+          <p>Authors: Jacklin Wang, Woocheol Jeong</p>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="gseo-slide">
+        <img src="https://images.theconversation.com/files/552184/original/file-20231004-19-i1snbm.jpg?ixlib=rb-4.1.0&rect=143%2C24%2C3655%2C2727&q=45&auto=format&w=926&fit=clip" alt="Quantum dots"/>
+        <div class="overlay">
+          <h4><a href="https://drive.google.com/file/d/1Cldih94vcYc9n6Kly3nrYeYvafuFZ3xH/view" target="_blank" rel="noopener noreferrer">Using Machine Learning to Accelerate Quantum Dot Production for The Development of Next-Generation Green Technology</a></h4>
+          <p>Authors: Jhala Hraday (Leader), Ankit Rathi, Xie Yundi</p>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="gseo-slide">
+        <img src="https://cepr.org/sites/default/files/styles/og_image/public/voxeu-cover-image/AdobeStock_323829966.jpeg?itok=7oSadq2F" alt="Binary code"/>
+        <div class="overlay">
+          <h4><a href="https://drive.google.com/file/d/1BPDyxxqN06BtZgL-iPqkekwt1IqFxo9X/view" target="_blank" rel="noopener noreferrer">Implications of Artificial Intelligence and Machine Learning on the U.S. Labor Market</a></h4>
+          <p>Author: Deeta Saravanan</p>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="gseo-slide">
+        <img src="https://i0.wp.com/eco-intelligent.com/wp-content/uploads/2020/09/genes.jpg?fit=1200%2C705&ssl=1&w=640" alt="DNA"/>
+        <div class="overlay">
+          <h4><a href="https://docs.google.com/document/d/1PeUrb1ORmBE99-bMZfvb0AYsQJUZYSMm/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Validating Mathematical Modeling for Genetic Switch Analysis</a></h4>
+          <p>Authors: Alicia Chan, Maha Essadi, Rohan Chhaya, Saraswati Sridhar</p>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="gseo-slide">
+        <img src="https://images.ctfassets.net/cnu0m8re1exe/uTkqQAbjpnnpceaY9UzLE/2d49aaee28ca31631c33a02ff89b437c/brainresearch.jpg?fm=jpg&fl=progressive&w=660&h=433&fit=fill" alt="Brain"/>
+        <div class="overlay">
+          <h4><a href="https://docs.google.com/document/d/1d8WTvUuHgo2w7nP9a3vyxHACNFoBkqca/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Memory Recall Efficiency Due to Neuronal Degradation</a></h4>
+          <p>Authors: Alicia Chan, Arielle Breuninger, Kylie Wall, Risa Pollak</p>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="gseo-slide">
+        <img src="https://cdn-prod.medicalnewstoday.com/content/images/articles/152/152902/the-kidneys-are-crucial.jpg" alt="Dialysis"/>
+        <div class="overlay">
+          <h4><a href="https://docs.google.com/document/d/1Gbgr1ws2450BRQEGRZ1Su3jNwJ0xdjNO/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Kidney Dialysis Model Development and Evaluation Through Experimentation</a></h4>
+          <p>Authors: Alicia Chan, Arielle Breuninger, Kylie Wall, Risa Pollak</p>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="gseo-slide">
+        <img src="https://alsnewstoday.com/wp-content/uploads/2019/04/shutterstock_746879410.jpg" alt="Insect macro"/>
+        <div class="overlay">
+          <h4><a href="https://docs.google.com/document/d/1aS7azQNSjI6BV9xQqnMqEB2ZplJI2qRM/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Motor-Activation Response System of Cockroach Legs</a></h4>
+          <p>Authors: Alicia Chan, Arielle Breuninger, Kylie Wall, Risa Pollak</p>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="gseo-slide">
+        <img src="https://res.cloudinary.com/jerrick/image/upload/d_642250b563292b35f27461a7.png,f_jpg,fl_progressive,q_auto,w_1024/647520c4365a8f001d7f56ea.jpg" alt="Phone privacy"/>
+        <div class="overlay">
+          <h4><a href="https://drive.google.com/file/d/1Eqgr1yXOygil7iYgQeazRUMYGouWOOmD/view" target="_blank" rel="noopener noreferrer">Digital Age’s Social Media Privacy Issues in Relation to Informed Consent</a></h4>
+          <p>Author: Samantha Alvarez</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Controls (siblings of .gseo-track) -->
+    <button aria-label="Previous" class="gseo-nav prev" id="prevBtn">‹</button>
+    <button aria-label="Next" class="gseo-nav next" id="nextBtn">›</button>
+    <div class="gseo-dots" id="dots"></div>
+  </div>
+</section>
+
+
+<!-- Latest -->
+<section class="latest section reveal" id="latest">
+<div class="wrap">
+<div class="eyebrow">LATEST</div>
+<h2 class="title">Latest research this week</h2>
+<p class="lead">Fresh, editor-curated papers from this week.</p>
+<div class="feed-grid">
+
+  <!-- 1: AI and employment in Indonesia -->
+  <a class="story-card" href="https://medium.com/@technology.gseo/ais-effect-on-employment-in-indonesia-s-service-sector-fef0837e5910" rel="noopener noreferrer" target="_blank">
+    <img alt="Jakarta skyline at night" class="story-thumb" src="https://media.istockphoto.com/id/96314194/photo/jakarta-cbd-panorama.jpg?s=612x612&w=0&k=20&c=y8V-KL1w2TGi77LWZkE1wmHJEHlVHAlduLppAdGt4lw="/>
+    <div class="topic">ECONOMICS</div>
+    <h3 class="post-title">AI and Jobs in Indonesia</h3>
+    <p class="post-deck">AI is reshaping Indonesia’s service sector and raising new challenges for workers and policy.</p>
+    <div class="post-meta"><span>Aug 21</span>·<span>3 min read</span></div>
+  </a>
+
+  <!-- 2: Three parent baby -->
+  <a class="story-card" href="https://medium.com/@technology.gseo/the-worlds-first-three-parent-baby-the-study-of-mitochondrial-replacement-therapy-b078dcef4459" rel="noopener noreferrer" target="_blank">
+    <img alt="Mitochondria micrograph" class="story-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZybNJvH8JIRVlWeX4r3aVasQwEz-i7fXBpA&s"/>
+    <div class="topic">BIOLOGY</div>
+    <h3 class="post-title">The First Three Parent Baby</h3>
+    <p class="post-deck">Mitochondrial replacement therapy offers hope against genetic disease and invites ethical debate.</p>
+    <div class="post-meta"><span>Aug 21</span>·<span>3 min read</span></div>
+  </a>
+
+  <!-- 3: Niobium-doped TiO2 for fuel cells -->
+  <a class="story-card" href="https://medium.com/@technology.gseo/niobium-doped-titanium-dioxide-greatly-improves-hydrogen-fuel-cells-d37f8f230f80" rel="noopener noreferrer" target="_blank">
+    <img alt="Hydrogen fuel cell stack" class="story-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5w1UZmid86lemBqe-JKWd3QIFEKehuCWWkQ&s"/>
+    <div class="topic">CHEMISTRY</div>
+    <h3 class="post-title">Niobium Boosts Hydrogen Fuel Cells</h3>
+    <p class="post-deck">Niobium-doped TiO₂ improves conductivity and durability for cleaner energy tech.</p>
+    <div class="post-meta"><span>Aug 21</span>·<span>3 min read</span></div>
+  </a>
+
+</div>
+</div>
+</section>
+<!-- Knowledge Hub -->
+<section class="wrap section reveal hub" id="sections">
+<div class="hub-head">
+<span class="eyebrow">SECTIONS</span>
+<h2 class="title">Explore our knowledge hub</h2>
+<p class="lead">Curated primers, reading paths, and real‑world links across core disciplines.</p>
+</div>
+<div class="grid">
+<article class="cell bio">
+<h3>Biology</h3>
+<p>From genetics and evolution to systems biology and ecology. Connect concepts to current biomedical breakthroughs.</p>
+<a class="cta" href="https://medium.com/@technology.gseo" target="_blank">Explore Biology</a>
+</article>
+<article class="cell chem">
+<h3>Chemistry</h3>
+<p>Atomic structure, spectroscopy, materials and reactions tied to green chemistry and industry use.</p>
+<a class="cta" href="https://medium.com/@technology.gseo" target="_blank">Explore Chemistry</a>
+</article>
+<article class="cell">
+<h3>Physics</h3>
+<p>Mechanics, electromagnetism, and modern physics with simulations and problem‑solving walkthroughs.</p>
+<a class="cta" href="https://medium.com/@technology.gseo" target="_blank">Explore Physics</a>
+</article>
+<article class="cell tech">
+<h3>Technology</h3>
+<p>Algorithms, AI, networks, and hardware. Tutorials that power research across fields.</p>
+<a class="cta" href="https://medium.com/@technology.gseo" target="_blank">Explore Technology</a>
+</article>
+<article class="cell fin">
+<h3>Finance</h3>
+<p>Markets, risk, econometrics, and fintech with evidence‑based analysis and reproducible examples.</p>
+<a class="cta" href="https://medium.com/@technology.gseo" target="_blank">Explore Finance</a>
+</article>
+</div>
+</section>
+<!-- Interviews -->
+<section class="wrap section reveal interviews" id="interviews">
+<div class="eyebrow">INTERVIEWS</div>
+<h2 class="title">Conversations with university students</h2>
+<div class="rail">
+<article class="card">
+<div class="img">
+<iframe allowfullscreen="" class="vid" src="https://www.youtube.com/embed/7UDqdmXy6YY?rel=0&modestbranding=1" title="NUS — Building a student research culture"></iframe>
+</div>
+<div class="meta">
+<div>
+<div class="label">NUS: Building a student research culture</div>
+<div class="desc">How mentorship and cadence turn first drafts into publishable work.</div>
+</div>
+<div class="circle-btn">▶</div>
+</div>
+</article>
+<article class="card">
+<div class="img">
+<iframe allowfullscreen="" class="vid" src="https://www.youtube.com/embed/6wxdbB_29TU?rel=0&modestbranding=1" title="Stanford — From idea to publication"></iframe>
+</div>
+<div class="meta">
+<div>
+<div class="label">Stanford: From idea to publication</div>
+<div class="desc">Finding a compelling question, scoping methods, and iterating with peers.</div>
+</div>
+<div class="circle-btn">▶</div>
+</div>
+</article>
+<article class="card">
+<div class="img">
+<iframe allowfullscreen="" class="vid" src="https://www.youtube.com/embed/O1er-F2HHoo?rel=0&modestbranding=1&list=PLvRa50QZRfufippHj8_2sdUuJNhZYXiYF" title="NYU — Interview series highlights"></iframe>
+</div>
+<div class="meta">
+<div>
+<div class="label">NYU: Interview series highlights</div>
+<div class="desc">Lessons learned from student‑led research communities.</div>
+</div>
+<div class="circle-btn">▶</div>
+</div>
+</article>
+</div>
+<div class="wrap" style="margin-top:16px; width: 230px;"><a class="cta" href="https://www.youtube.com/@Global-Science-Engineering-Org" target="_blank">Watch full playlist</a></div>
+</section>
+<!-- Join GSEO -->
+<section class="wrap section reveal join" id="process">
+<div class="eyebrow">JOIN GSEO</div>
+<h2 class="title">Write and publish with our network</h2>
+<p class="lead">Join as a contributor and we’ll match you with an editor or mentor from our network of university students. You’ll get topic guidance, editorial feedback, and a clear path to publishing. Many contributors go on to write <em>weekly</em> articles.</p>
+<div class="steps">
+<div class="step reveal-animated"><div class="n">1</div><div class="step-content"><h4>Reach out through email</h4><p>Send us a message and share your research interest or draft.</p></div></div>
+<div class="step reveal-animated"><div class="n">2</div><div class="step-content"><h4>Publish your paper</h4><p>We'll walk you through edits and prepare your paper for publication.</p></div></div>
+<div class="step reveal-animated"><div class="n">3</div><div class="step-content"><h4>Join our team</h4><p>Become a Research Associate and help review, edit, and mentor new contributors.</p></div></div>
+</div>
+<div class="signup" style="padding-top:40px">
+<h3 style="margin:0 0 6px">Become a contributor</h3>
+<p class="muted" style="margin:0 0 16px">Share your email and areas of interest—we’ll reach out with next steps and a mentor match.</p>
+</div>
+<center><a class="learn-more" href="join_gseo.html">Learn More →</a></center>
+</section>
+<!-- Impact -->
+<section class="wrap section reveal stats">
+<div class="grid">
+<div>
+<div class="eyebrow">IMPACT</div>
+<h2>Impact at a glance</h2>
+<p class="lead">A student‑led journal with growing submissions, readership and reach.</p>
+</div>
+<div class="figures">
+<div class="figure" style="--w:86%"><div class="num"><span class="count" data-to="100">0</span>+</div><div class="bar"><b></b></div><div class="cap">Articles published</div></div>
+<div class="figure" style="--w:68%"><div class="num"><span class="count" data-to="8">0</span>+</div><div class="bar"><b></b></div><div class="cap">Countries reached</div></div>
+</div>
+</div>
+</section>
+<!-- Team -->
+<section class="about wrap section reveal" id="about">
+<h2 class="about-title">Our Team</h2>
+<p class="about-sub">Meet the people building GSEO’s student-led research community.</p>
+<div class="team-row">
+<figure class="team-member">
+<img alt="Woocheol" src="woocheol.png"/>
+<figcaption>
+<div class="team-name">Woocheol</div>
+<div class="team-role">CEO</div>
+</figcaption>
+</figure>
+<figure class="team-member">
+<img alt="Kartik Nayak" src="kartik.png"/>
+<figcaption>
+<div class="team-name">Kartik Nayak</div>
+<div class="team-role">President</div>
+</figcaption>
+</figure>
+<figure class="team-member">
+<img alt="Kaka" src="kaka.png"/>
+<figcaption>
+<div class="team-name">Kaka</div>
+<div class="team-role">Head of Biology</div>
+</figcaption>
+</figure>
+<figure class="team-member">
+<img alt="Raven" src="raven.png"/>
+<figcaption>
+<div class="team-name">Raven</div>
+<div class="team-role">Head of Chemistry</div>
+</figcaption>
+</figure>
+<figure class="team-member">
+<img alt="Logan" src="logan.png"/>
+<figcaption>
+<div class="team-name">Logan</div>
+<div class="team-role">Head of Finance</div>
+</figcaption>
+</figure>
+<figure class="team-member">
+<img alt="Dida" src="dida.png"/>
+<figcaption>
+<div class="team-name">Dida</div>
+<div class="team-role">Social Media Manager</div>
+</figcaption>
+</figure>
+</div>
+</section>
+<!-- FAQ + Submit -->
+<section class="wrap section reveal" id="submit">
+<div class="eyebrow">FAQ & SUBMISSIONS</div>
+<h2 class="title">Questions & submissions</h2>
+<div class="faq">
+<details class="qa" open=""><summary>What is GSEO?<span>+</span></summary><div class="a">A student‑led research journal publishing citable work across STEM and beyond.</div></details>
+<details class="qa"><summary>How often are issues released?<span>+</span></summary><div class="a">Every Thursday, with featured interviews and curated reading paths.</div></details>
+<details class="qa"><summary>How does peer review work?<span>+</span></summary><div class="a">All papers undergo a double‑blind review by our subject editors.</div></details>
+<details class="qa"><summary>What topics can I write about?<span>+</span></summary><div class="a">Biology, chemistry, physics, earth science, CS/AI, data science, economics/finance, and interdisciplinary work.</div></details>
+<details class="qa"><summary>Can I publish weekly?<span>+</span></summary><div class="a">Yes. Many contributors maintain a weekly or bi‑weekly cadence after their first piece.</div></details>
+<details class="qa"><summary>How long does review take?<span>+</span></summary><div class="a">Initial feedback usually comes within one to two weeks, depending on complexity and editor availability.</div></details>
+<details class="qa"><summary>Can I co‑author with friends?<span>+</span></summary><div class="a">Yes. We support co‑authorship and will credit all contributors.</div></details>
+<details class="qa"><summary>Do I keep the rights to my work?<span>+</span></summary><div class="a">Yes. You retain authorship. We host and distribute with attribution; you can also mirror to your portfolio.</div></details>
+</div>
+<div class="signup">
+<div class="comet"></div>
+<h3 style="margin:0 0 6px">Ready to break into research?</h3>
+<p class="muted" style="margin:0 0 16px">Join a growing community of ambitious and passionate academics.</p>
+</div>
+<!-- Footer -->
+<footer class="site">
+<div class="wrap">
+<div class="foot-grid foot">
+<div>
+<div class="brandline"><img src="logo.png"></div>
+<p class="muted" style="margin:10px 0 0; max-width:520px">A modern, peer‑reviewed platform helping high‑school students publish original, citable research across STEM and beyond.</p>
+<div class="news">
+<input placeholder="Join newsletter — your@email"/>
+<button>Sign up</button>
+</div>
+</div>
+<div>
+<h5>Explore</h5>
+<a href="#papers">Papers</a>
+<a href="#latest">Latest</a>
+<a href="#sections">Sections</a>
+<a href="#interviews">Interviews</a>
+</div>
+<div>
+<h5>Publishing</h5>
+<a href="#process">Join</a>
+<a href="#submit">Submit paper</a>
+<a href="#">Author guide</a>
+</div>
+<div>
+<h5>Connect</h5>
+<a href="#about">Team</a>
+<a href="#">Contact</a>
+<a href="#">Instagram</a>
+<a href="#">YouTube</a>
+</div>
+</div>
+<div class="copyright">
+<div>© <span id="year"></span> GSEO. All rights reserved.</div>
+<div><a href="#">Accessibility</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></div>
+</div>
+</div>
+</footer>
+<button aria-label="Back to top" class="to-top" id="toTop">↑</button>
+<script>
+// Dark mode toggle with persistence (safe if the button is missing)
+const root = document.documentElement;
+const modeBtn = document.getElementById('modeBtn');
+const saved = localStorage.getItem('gseo-mode');
+
+if (saved === 'dark') {
+  root.classList.add('dark');
+  if (modeBtn) {
+    modeBtn.textContent = '☀️';
+  }
+}
+
+if (modeBtn) {
+  modeBtn.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    const on = root.classList.contains('dark');
+    modeBtn.textContent = on ? '☀️' : '🌙';
+    localStorage.setItem('gseo-mode', on ? 'dark' : 'light');
+  });
+}
+
+
+    // Progress bar + back-to-top + parallax
+    const progress = document.getElementById('progress');
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      const h = document.documentElement;
+      const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      progress.style.transform = `scaleX(${scrolled})`;
+      if(h.scrollTop > 500){ toTop.classList.add('show'); } else { toTop.classList.remove('show'); }
+      const heroImg = document.querySelector('.hero-art img');
+      if(heroImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        const y = h.scrollTop * 0.06;
+        heroImg.style.transform = `translateY(${y}px) scale(1.04)`;
+      }
+    }, {passive:true});
+    toTop.onclick = ()=>window.scrollTo({top:0, behavior:'smooth'});
+
+    // Reveal on scroll
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} });
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // Animated counters
+    const counters = document.querySelectorAll('.count');
+    const cObs = new IntersectionObserver((entries)=>{
+      entries.forEach(({isIntersecting, target})=>{
+        if(isIntersecting){
+          const to = +target.dataset.to; let cur = 0; const step = Math.max(1, Math.floor(to/80));
+          const id = setInterval(()=>{ cur+=step; if(cur>=to){ cur=to; clearInterval(id);} target.textContent = cur; }, 18);
+          cObs.unobserve(target);
+        }
+      });
+    }, {threshold:.4});
+    counters.forEach(el=>cObs.observe(el));
+
+    // Active nav link highlight
+    const sections = ['papers','latest','sections','interviews','process','about','submit'].map(id=>document.getElementById(id));
+    const navLinks = document.querySelectorAll('#navLinks .nav-link');
+    const nObs = new IntersectionObserver((entries)=>{
+      entries.forEach(({isIntersecting, target})=>{
+        if(isIntersecting){
+          navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === `#${target.id}`));
+        }
+      })
+    }, {rootMargin:'-50% 0px -45% 0px', threshold:0});
+    sections.filter(Boolean).forEach(sec=>nObs.observe(sec));
+
+    // Button ripple tracking
+    document.addEventListener('pointermove', (e)=>{
+      const t = e.target.closest('.btn');
+      if(!t) return;
+      const r = t.getBoundingClientRect();
+      t.style.setProperty('--x', `${e.clientX - r.left}px`);
+      t.style.setProperty('--y', `${e.clientY - r.top}px`);
+    });
+    
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  
+    // Join section animated reveal
+    document.querySelectorAll('.reveal-animated').forEach(el => obs.observe(el));
+    
+    // Flags: infinite marquee with auto-duplication + adaptive speed
+    (function(){
+      const track = document.getElementById('flagTrack');
+      if(!track) return;
+      // Store original
+      const original = track.innerHTML;
+      // Duplicate content multiple times to ensure no visible gap
+      track.innerHTML = original + original + original;
+      // Adaptive speed based on total width
+      const total = track.scrollWidth;
+      const pxPerSec = 140; // baseline speed
+      const dur = Math.max(8, Math.round(total / pxPerSec));
+      track.style.setProperty('--speed', dur + 's');
+      // Ensure aria-label exists on each .flag from inner <img alt> if missing
+      track.querySelectorAll('.flag').forEach(flag => {
+        if(!flag.getAttribute('aria-label')){
+          const img = flag.querySelector('img');
+          if(img && img.alt) flag.setAttribute('aria-label', img.alt);
+        }
+      });
+    })();
+
+</script>
+
+<script>
+(function(){
+  const stage = document.getElementById('sliderStage');
+  const track = document.getElementById('track');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  if (!stage || !track) return;
+
+  let slides = Array.from(track.querySelectorAll('.gseo-slide'));
+  let index = 0;
+  let slideW = 0;
+  let isDragging = false;
+  let startX = 0;
+  let deltaX = 0;
+
+  function setSizes(){
+    slideW = stage.clientWidth;
+    slides.forEach(s => s.style.minWidth = slideW + 'px');
+    goTo(index, false);
+  }
+
+  function goTo(i, animate=true){
+    index = (i + slides.length) % slides.length;
+    if (!animate) track.style.transition = 'none';
+    requestAnimationFrame(()=>{
+      track.style.transform = 'translateX(' + (-index * slideW) + 'px)';
+      if (!animate){
+        requestAnimationFrame(()=> track.style.transition = 'transform .35s ease');
+      }
+    });
+    updateDots();
+  }
+
+  function makeDots(){
+    dotsWrap.innerHTML = '';
+    slides.forEach((_, i)=>{
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      b.addEventListener('click', ()=> goTo(i));
+      dotsWrap.appendChild(b);
+    });
+    updateDots();
+  }
+
+  function updateDots(){
+    const dots = dotsWrap.querySelectorAll('button');
+    dots.forEach((d, i)=> d.setAttribute('aria-current', i===index ? 'true':'false'));
+  }
+
+  // Arrow controls
+  prevBtn && prevBtn.addEventListener('click', ()=> goTo(index - 1));
+  nextBtn && nextBtn.addEventListener('click', ()=> goTo(index + 1));
+
+  // Drag/swipe
+  track.addEventListener('pointerdown', (e)=>{
+    // do not start drag if user clicked a link or button
+    if (e.target.closest('a, button')) return;
+    isDragging = true;
+    startX = e.clientX;
+    deltaX = 0;
+    track.setPointerCapture(e.pointerId);
+    track.style.transition = 'none';
+  });
+  track.addEventListener('pointermove', (e)=>{
+    if (!isDragging) return;
+    deltaX = e.clientX - startX;
+    track.style.transform = 'translateX(' + ((-index * slideW) + deltaX) + 'px)';
+  });
+  track.addEventListener('pointerup', (e)=>{
+    if (!isDragging) return;
+    isDragging = false;
+    track.releasePointerCapture(e.pointerId);
+    track.style.transition = 'transform .35s ease';
+    if (Math.abs(deltaX) > slideW * 0.2){
+      if (deltaX < 0) goTo(index + 1);
+      else goTo(index - 1);
+    } else {
+      goTo(index);
+    }
+  });
+  track.addEventListener('pointercancel', ()=>{
+    isDragging = false;
+    track.style.transition = 'transform .35s ease';
+    goTo(index);
+  });
+
+  // Init
+  window.addEventListener('resize', setSizes);
+  window.addEventListener('load', setSizes);
+  makeDots();
+  setSizes();
+
+  // Optional autoplay
+  let timer = setInterval(()=> goTo(index + 1), 6000);
+  stage.addEventListener('mouseenter', ()=> clearInterval(timer));
+  stage.addEventListener('mouseleave', ()=> timer = setInterval(()=> goTo(index + 1), 6000));
+})();
+</script>
+
+</body>
+</html>

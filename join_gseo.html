@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join GSEO — Pathway</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --paper:#fdfcff;
+      --ink:#0a0b0f;
+      --muted:#5b6170;
+      --line:#eceef3;
+      --accent:#7c3aed; /* purple accent */
+      --accent-ink:#4c1d95;
+      --radius:16px;
+      --shadow:0 10px 24px rgba(17, 24, 39, .06), 0 2px 6px rgba(17,24,39,.04);
+      --max:1040px;
+    }
+
+    body{
+      margin:0;
+      font-family:"Inter", system-ui, sans-serif;
+      background:linear-gradient(180deg,#fff 0%, var(--paper) 100%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit; text-decoration:none}
+
+    /* Navbar (sticky) */
+    header.site-nav{position:sticky; top:0; z-index:120; backdrop-filter:saturate(130%) blur(8px); background:color-mix(in oklab, #ffffff 88%, transparent); border-bottom:1px solid var(--line)}
+    .nav{height:68px; display:flex; align-items:center; gap:14px; max-width:var(--max); margin:0 auto; padding:0 20px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .mark{width:24px;height:24px;border-radius:7px;background:conic-gradient(from 140deg, var(--accent), #c4b5fd)}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* Page heading */
+    .hero{padding:28px 0 18px}
+    .kicker{display:inline-block; font-weight:700; font-size:12px; letter-spacing:.18em; color:var(--accent-ink); background:color-mix(in oklab, var(--accent) 12%, transparent); border:1px solid color-mix(in oklab, var(--accent) 30%, transparent); padding:6px 10px; border-radius:999px}
+    .title{font-size:clamp(28px,4.6vw,46px); line-height:1.08; margin:.4em 0 .2em; font-weight:700}
+    .sub{color:var(--muted); max-width:820px; line-height:1.7; margin-bottom:8px}
+
+    /* Stepper */
+    .stepper{position:relative; margin-top:12px; padding-bottom:92px}
+    .step{position:relative; display:grid; grid-template-columns:56px 1fr; gap:14px; padding:14px 0}
+    /* perfectly center the rail under the number column */
+    .step::before{content:""; position:absolute; left:calc(56px/2 - 1px); top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--accent) 0%, #ddd6fe 100%); opacity:.6; z-index:1}
+    .badge{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; background:#ede9fe; color:var(--accent-ink); font-weight:800; border:1px solid #c4b5fd; z-index:2}
+    .card{position:relative; z-index:3; background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:var(--shadow)}
+    .card h3{margin:4px 0 8px; font-size:20px; font-weight:700}
+    .card p{margin:0; color:var(--muted); line-height:1.8}
+    .card ul{margin:10px 0 0 18px; color:var(--muted); line-height:1.8}
+
+    /* Sticky bottom action bar */
+    .bar{position:sticky; bottom:0; z-index:110; backdrop-filter:saturate(130%) blur(8px); background:color-mix(in oklab, #ffffff 86%, transparent); border-top:1px solid var(--line)}
+    .bar .inner{max-width:var(--max); margin:0 auto; padding:12px 20px; display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    .bar .cta{height:44px; padding:0 14px; border-radius:12px; background:var(--accent); color:#fff; font-weight:600; display:inline-flex; align-items:center}
+    .bar a.ghost{background:transparent; color:var(--accent-ink); border:1px solid var(--accent)}
+
+    footer{border-top:1px solid var(--line); color:var(--muted); padding:28px 0; text-align:center; margin-top:38px}
+  </style>
+</head>
+<body>
+  <!-- Sticky navbar -->
+  <header class="site-nav">
+    <div class="nav">
+      <a class="brand" href="index.html"><img src="logo.png" style="width: 200px; height: 100px; object-fit: contain;" alt="GSEO logo"></a>
+    </div>
+  </header>
+
+  <!-- Page heading -->
+  <section class="hero wrap">
+    <span class="kicker">JOIN • STEP‑BY‑STEP</span>
+    <h1 class="title">A simple pathway into GSEO</h1>
+    <p class="sub">From your first email to publication, then into our Research Associate track and interview team. The steps below explain what to send, what you will receive, and how to keep growing inside the community.</p>
+  </section>
+
+  <main class="wrap stepper">
+    <div class="step">
+      <div class="badge">1</div>
+      <div class="card">
+        <h3>Contact GSEO</h3>
+        <p>Write a short email that covers three things: your topic, the question you want to answer, and any draft or sources you already have. We will match you with an editor or peer mentor who can help refine scope and choose methods so you begin with a clear plan instead of a blank page.</p>
+        <ul>
+          <li><strong>Helpful to include:</strong> 2–4 line summary, 3–5 key sources, your preferred timeline.</li>
+          <li><strong>Outcome:</strong> an initial plan with milestones and a suggested structure.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge">2</div>
+      <div class="card">
+        <h3>Submit your paper</h3>
+        <p>Send a draft or full manuscript for double‑blind peer review. Editors focus on clarity, evidence, and reproducibility. You will receive line‑level comments plus a summary sheet outlining what works, what to tighten, and any missing citations or data notes.</p>
+        <ul>
+          <li><strong>What we check:</strong> research question, methodology, data integrity, figures, and citation style.</li>
+          <li><strong>Outcome:</strong> a revision checklist that makes the next pass straightforward.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge">3</div>
+      <div class="card">
+        <h3>Get published</h3>
+        <p>After revisions, we publish your paper in our weekly issue and assign a permanent, citable link. We also provide a compact social caption and a thumbnail so you can share your work professionally on applications and portfolios.</p>
+        <ul>
+          <li><strong>Included:</strong> citable URL, formatted PDF, and web version.</li>
+          <li><strong>Outcome:</strong> your research becomes part of a searchable library used by students worldwide.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge">4</div>
+      <div class="card">
+        <h3>Research Associate</h3>
+        <p>Once published, join our Article Writing Campaign under editorial heads. You will write shorter pieces on a regular cadence, help review new submissions, and support first‑time authors. This is where you develop consistency and learn how an editorial pipeline operates.</p>
+        <ul>
+          <li><strong>Cadence:</strong> weekly or bi‑weekly; we help you pick a sustainable schedule.</li>
+          <li><strong>Outcome:</strong> portfolio depth, mentorship experience, and stronger editorial judgment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge">5</div>
+      <div class="card">
+        <h3>Lead interviews</h3>
+        <p>Contributors who perform well over time may be invited to lead interviews with top university students. You will prepare questions, host conversations, and distill insights for our audience. This builds communication skills and expands your academic network.</p>
+        <ul>
+          <li><strong>What we look for:</strong> reliability, clear writing, initiative, and thoughtful feedback to others.</li>
+          <li><strong>Outcome:</strong> on‑camera experience and leadership within the GSEO community.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <div class="bar">
+    <div class="inner">
+      <div style="font-weight:600">Ready to send your idea?</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <a class="cta" href="mailto:technology.gseo@gmail.com?subject=GSEO%20Submission%20%2F%20Research%20Idea">Email technology.gseo@gmail.com</a>
+        <a class="cta ghost" href="homepage.html">Back to main site</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> GSEO. All rights reserved.
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
