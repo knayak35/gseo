@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-  <link rel="icon" type="image/png" href="logo.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="icon" type="image/png" href="logo.png" />
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>GSEO — Student Research Journal</title>
@@ -533,6 +534,17 @@
 @media (max-width:640px){ .gseo-slide img{ height:300px; } }
 </style>
 
+
+<style>
+@media (max-width: 768px){
+  .gseo-slide img{ height: 280px; }
+  .overlay h4{ font-size: 18px; }
+}
+@media (min-width: 769px) and (max-width: 1024px){
+  .gseo-slide img{ height: 360px; }
+}
+</style>
+
 </head>
 <body>
 
@@ -541,26 +553,32 @@
 <div class="progress" id="progress"></div>
 <!-- Header -->
 <header class="sticky">
-<div class="wrap nav">
-<a class="brand" href="index.html" style="gap:10px">
-<img alt="GSEO Journal Logo" src="logo.png" style="width: 200px; height: 100px; object-fit: contain;"/>
-</a>
-<nav class="links" id="navLinks">
-<a class="nav-link" href="#papers">Papers</a>
-<a class="nav-link" href="#latest">Latest</a>
-<a class="nav-link" href="#sections">Sections</a>
-<a class="nav-link" href="#interviews">Interviews</a>
-<a class="nav-link" href="#process">Join</a>
-<a class="nav-link" href="#about">Team</a>
-<a class="nav-link" href="#submit">Submit Paper ↗</a>
-</nav>
-</div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="backdrop-filter:saturate(130%) blur(12px); border-bottom:1px solid var(--line);">
+    <div class="container-fluid wrap" style="gap:10px">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="logo.png" alt="GSEO Journal Logo" style="width: 160px; height: 60px; object-fit: contain;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#gseoNavbar" aria-controls="gseoNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="gseoNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase fw-semibold small" id="navLinks">
+          <li class="nav-item"><a class="nav-link px-2" href="#papers">Papers</a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#latest">Latest</a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#sections">Sections</a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#interviews">Interviews</a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#process">Join</a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#about">Team</a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#submit">Submit Paper ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>
 <!-- Hero -->
-<section class="hero">
-  <div class="wrap h-grid reveal">
-    <div>
-      <div class="kicker">STUDENT RESEARCH JOURNAL</div>
+<section class="hero"><div class="container">
+  <div class="row align-items-center g-4 reveal">
+    <div class="col-12 col-lg-6"><div class="kicker">STUDENT RESEARCH JOURNAL</div>
       <h1 class="h-title">Publish high‑school research with GSEO</h1>
       <p class="h-sub">Turn curiosity into citable scholarship. Build a public portfolio, learn from editors and mentors, and publish work that universities and future collaborators can reference.</p>
       <form class="h-form" onsubmit="event.preventDefault()">
@@ -571,29 +589,29 @@
         </div>
       </form>
     </div>
-    <div class="hero-art" aria-hidden="true">
+    <div class="col-12 col-lg-6"><div class="hero-art" aria-hidden="true">
       <img src="semiconductor.png" alt="Research lab"/>
     </div>
   </div>
-</section>
+</div></section>
 <!-- Flags -->
-<section aria-label="Trusted by schools around the world" class="wrap flags reveal">
+<section aria-label="Trusted by schools around the world" class="flags reveal"><div class="container">
   <div class="flag-marquee flag-mask">
     <div class="flag-track" id="flagTrack">
-      <div class="flag" aria-label="USA"><img alt="USA" src="https://flagcdn.com/w80/us.png"/></div>
-      <div class="flag" aria-label="Singapore"><img alt="Singapore" src="https://flagcdn.com/w80/sg.png"/></div>
-      <div class="flag" aria-label="Indonesia"><img alt="Indonesia" src="https://flagcdn.com/w80/id.png"/></div>
-      <div class="flag" aria-label="Mexico"><img alt="Mexico" src="https://flagcdn.com/w80/mx.png"/></div>
-      <div class="flag" aria-label="Croatia"><img alt="Croatia" src="https://flagcdn.com/w80/hr.png"/></div>
-      <div class="flag" aria-label="Turkey"><img alt="Turkey" src="https://flagcdn.com/w80/tr.png"/></div>
+      <div class="flag" aria-label="USA"><img alt="\1" src="\2" class="img-fluid"/></div>
+      <div class="flag" aria-label="Singapore"><img alt="\1" src="\2" class="img-fluid"/></div>
+      <div class="flag" aria-label="Indonesia"><img alt="\1" src="\2" class="img-fluid"/></div>
+      <div class="flag" aria-label="Mexico"><img alt="\1" src="\2" class="img-fluid"/></div>
+      <div class="flag" aria-label="Croatia"><img alt="\1" src="\2" class="img-fluid"/></div>
+      <div class="flag" aria-label="Turkey"><img alt="\1" src="\2" class="img-fluid"/></div>
       <!-- Add more here if you like; the scroller will adapt -->
     </div>
   </div>
-</section>
+</div></section>
 <!-- Featured -->
 
 
-<section class="wrap section reveal slider" id="papers">
+<section class="section reveal slider" id="papers"><div class="container">
   <div class="eyebrow circled">FEATURED PAPERS</div>
   <h2 class="title">Peer-reviewed highlights</h2>
   <p class="lead">Recent work from our editorial board across biology, chemistry, technology, and finance.</p>
@@ -689,12 +707,12 @@
     <button aria-label="Next" class="gseo-nav next" id="nextBtn">›</button>
     <div class="gseo-dots" id="dots"></div>
   </div>
-</section>
+</div></section>
 
 
 <!-- Latest -->
 <section class="latest section reveal" id="latest">
-<div class="wrap">
+<div class="container">
 <div class="eyebrow">LATEST</div>
 <h2 class="title">Latest research this week</h2>
 <p class="lead">Fresh, editor-curated papers from this week.</p>
@@ -702,7 +720,7 @@
 
   <!-- 1: AI and employment in Indonesia -->
   <a class="story-card" href="https://medium.com/@technology.gseo/ais-effect-on-employment-in-indonesia-s-service-sector-fef0837e5910" rel="noopener noreferrer" target="_blank">
-    <img alt="Jakarta skyline at night" class="story-thumb" src="https://media.istockphoto.com/id/96314194/photo/jakarta-cbd-panorama.jpg?s=612x612&w=0&k=20&c=y8V-KL1w2TGi77LWZkE1wmHJEHlVHAlduLppAdGt4lw="/>
+    <img alt="Jakarta skyline at night" class="story-thumb img-fluid w-100" src="https://media.istockphoto.com/id/96314194/photo/jakarta-cbd-panorama.jpg?s=612x612&w=0&k=20&c=y8V-KL1w2TGi77LWZkE1wmHJEHlVHAlduLppAdGt4lw="/>
     <div class="topic">ECONOMICS</div>
     <h3 class="post-title">AI and Jobs in Indonesia</h3>
     <p class="post-deck">AI is reshaping Indonesia’s service sector and raising new challenges for workers and policy.</p>
@@ -711,7 +729,7 @@
 
   <!-- 2: Three parent baby -->
   <a class="story-card" href="https://medium.com/@technology.gseo/the-worlds-first-three-parent-baby-the-study-of-mitochondrial-replacement-therapy-b078dcef4459" rel="noopener noreferrer" target="_blank">
-    <img alt="Mitochondria micrograph" class="story-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZybNJvH8JIRVlWeX4r3aVasQwEz-i7fXBpA&s"/>
+    <img alt="Mitochondria micrograph" class="story-thumb img-fluid w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZybNJvH8JIRVlWeX4r3aVasQwEz-i7fXBpA&s"/>
     <div class="topic">BIOLOGY</div>
     <h3 class="post-title">The First Three Parent Baby</h3>
     <p class="post-deck">Mitochondrial replacement therapy offers hope against genetic disease and invites ethical debate.</p>
@@ -720,7 +738,7 @@
 
   <!-- 3: Niobium-doped TiO2 for fuel cells -->
   <a class="story-card" href="https://medium.com/@technology.gseo/niobium-doped-titanium-dioxide-greatly-improves-hydrogen-fuel-cells-d37f8f230f80" rel="noopener noreferrer" target="_blank">
-    <img alt="Hydrogen fuel cell stack" class="story-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5w1UZmid86lemBqe-JKWd3QIFEKehuCWWkQ&s"/>
+    <img alt="Hydrogen fuel cell stack" class="story-thumb img-fluid w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5w1UZmid86lemBqe-JKWd3QIFEKehuCWWkQ&s"/>
     <div class="topic">CHEMISTRY</div>
     <h3 class="post-title">Niobium Boosts Hydrogen Fuel Cells</h3>
     <p class="post-deck">Niobium-doped TiO₂ improves conductivity and durability for cleaner energy tech.</p>
@@ -731,7 +749,7 @@
 </div>
 </section>
 <!-- Knowledge Hub -->
-<section class="wrap section reveal hub" id="sections">
+<section class="section reveal hub" id="sections"><div class="container">
 <div class="hub-head">
 <span class="eyebrow">SECTIONS</span>
 <h2 class="title">Explore our knowledge hub</h2>
@@ -764,9 +782,9 @@
 <a class="cta" href="https://medium.com/@technology.gseo" target="_blank">Explore Finance</a>
 </article>
 </div>
-</section>
+</div></section>
 <!-- Interviews -->
-<section class="wrap section reveal interviews" id="interviews">
+<section class="section reveal interviews" id="interviews"><div class="container">
 <div class="eyebrow">INTERVIEWS</div>
 <h2 class="title">Conversations with university students</h2>
 <div class="rail">
@@ -808,9 +826,9 @@
 </article>
 </div>
 <div class="wrap" style="margin-top:16px; width: 230px;"><a class="cta" href="https://www.youtube.com/@Global-Science-Engineering-Org" target="_blank">Watch full playlist</a></div>
-</section>
+</div></section>
 <!-- Join GSEO -->
-<section class="wrap section reveal join" id="process">
+<section class="section reveal join" id="process"><div class="container">
 <div class="eyebrow">JOIN GSEO</div>
 <h2 class="title">Write and publish with our network</h2>
 <p class="lead">Join as a contributor and we’ll match you with an editor or mentor from our network of university students. You’ll get topic guidance, editorial feedback, and a clear path to publishing. Many contributors go on to write <em>weekly</em> articles.</p>
@@ -824,9 +842,9 @@
 <p class="muted" style="margin:0 0 16px">Share your email and areas of interest—we’ll reach out with next steps and a mentor match.</p>
 </div>
 <center><a class="learn-more" href="join_gseo.html">Learn More →</a></center>
-</section>
+</div></section>
 <!-- Impact -->
-<section class="wrap section reveal stats">
+<section class="section reveal stats"><div class="container">
 <div class="grid">
 <div>
 <div class="eyebrow">IMPACT</div>
@@ -838,58 +856,58 @@
 <div class="figure" style="--w:68%"><div class="num"><span class="count" data-to="8">0</span>+</div><div class="bar"><b></b></div><div class="cap">Countries reached</div></div>
 </div>
 </div>
-</section>
+</div></section>
 <!-- Team -->
-<section class="about wrap section reveal" id="about">
+<section class="about section reveal" id="about"><div class="container">
 <h2 class="about-title">Our Team</h2>
 <p class="about-sub">Meet the people building GSEO’s student-led research community.</p>
 <div class="team-row">
 <figure class="team-member">
-<img alt="Woocheol" src="woocheol.png"/>
+<img alt="\1" src="\2" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Woocheol</div>
 <div class="team-role">CEO</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="Kartik Nayak" src="kartik.png"/>
+<img alt="\1" src="\2" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Kartik Nayak</div>
 <div class="team-role">President</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="Kaka" src="kaka.png"/>
+<img alt="\1" src="\2" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Kaka</div>
 <div class="team-role">Head of Biology</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="Raven" src="raven.png"/>
+<img alt="\1" src="\2" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Raven</div>
 <div class="team-role">Head of Chemistry</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="Logan" src="logan.png"/>
+<img alt="\1" src="\2" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Logan</div>
 <div class="team-role">Head of Finance</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="Dida" src="dida.png"/>
+<img alt="\1" src="\2" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Dida</div>
 <div class="team-role">Social Media Manager</div>
 </figcaption>
 </figure>
 </div>
-</section>
+</div></section>
 <!-- FAQ + Submit -->
-<section class="wrap section reveal" id="submit">
+<section class="section reveal" id="submit"><div class="container">
 <div class="eyebrow">FAQ & SUBMISSIONS</div>
 <h2 class="title">Questions & submissions</h2>
 <div class="faq">
@@ -907,16 +925,15 @@
 <h3 style="margin:0 0 6px">Ready to break into research?</h3>
 <p class="muted" style="margin:0 0 16px">Join a growing community of ambitious and passionate academics.</p>
 </div>
+</div>
 <!-- Footer -->
-<footer class="site">
+<footer class="site"><div class="container">
 <div class="wrap">
 <div class="foot-grid foot">
 <div>
 <div class="brandline"><img src="logo.png"></div>
 <p class="muted" style="margin:10px 0 0; max-width:520px">A modern, peer‑reviewed platform helping high‑school students publish original, citable research across STEM and beyond.</p>
 <div class="news">
-<input placeholder="Join newsletter — your@email"/>
-<button>Sign up</button>
 </div>
 </div>
 <div>
@@ -945,7 +962,7 @@
 <div><a href="#">Accessibility</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></div>
 </div>
 </div>
-</footer>
+</div></footer>
 <button aria-label="Back to top" class="to-top" id="toTop">↑</button>
 <script>
 // Dark mode toggle with persistence (safe if the button is missing)
@@ -1157,5 +1174,6 @@ if (modeBtn) {
 })();
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
