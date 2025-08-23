@@ -543,6 +543,34 @@
 @media (min-width: 769px) and (max-width: 1024px){
   .gseo-slide img{ height: 360px; }
 }
+
+  /* Navbar link underline hover animation */
+#navLinks .nav-link {
+  position: relative;
+  color: var(--text);
+  font-size: 13px;
+  padding: 6px 0;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 600;
+  opacity: .92;
+  overflow: hidden;
+}
+#navLinks .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,var(--brand),var(--brand-2));
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+#navLinks .nav-link:hover::after,
+#navLinks .nav-link.active::after {
+  transform: translateX(0);
+}
 </style>
 
 </head>
@@ -857,44 +885,51 @@
 </div>
 </div>
 </div></section>
-<!-- Team -->
 <section class="about section reveal" id="about"><div class="container">
 <h2 class="about-title">Our Team</h2>
 <p class="about-sub">Meet the people building GSEO’s student-led research community.</p>
 <div class="team-row">
 <figure class="team-member">
-<img alt="\1" src="woocheol.png" class="img-fluid"/>
+<img alt="Woocheol" src="woocheol.png" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Woocheol</div>
 <div class="team-role">CEO</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="\1" src="kartik.png" class="img-fluid"/>
+<img alt="Kartik" src="kartik.png" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Kartik Nayak</div>
 <div class="team-role">President</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="\1" src="kaka.png" class="img-fluid"/>
+<img alt="Kaka" src="kaka.png" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Kaka</div>
 <div class="team-role">Head of Biology</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="\1" src="raven.png" class="img-fluid"/>
+<img alt="Raven" src="raven.png" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Raven</div>
 <div class="team-role">Head of Chemistry</div>
 </figcaption>
 </figure>
 <figure class="team-member">
-<img alt="\1" src="logan.png" class="img-fluid"/>
+<img alt="Logan" src="logan.png" class="img-fluid"/>
 <figcaption>
 <div class="team-name">Logan</div>
 <div class="team-role">Head of Finance</div>
+</figcaption>
+</figure>
+<!-- New member -->
+<figure class="team-member">
+<img alt="Dida" src="dida.png" class="img-fluid"/>
+<figcaption>
+<div class="team-name">Dida</div>
+<div class="team-role">Social Media Manager</div>
 </figcaption>
 </figure>
 </div>
